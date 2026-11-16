@@ -1,0 +1,63 @@
+/* Design tokens, from the 01-website design: brutalist style, Terracotta colours. */
+:root {
+  --radius: 0;
+  --border-w: 1px;
+  --rule-heavy: 3px;
+  --max-w: 1280px;
+  --measure: 66ch;
+  --s1: 4px;
+  --s2: 8px;
+  --s3: 12px;
+  --s4: 16px;
+  --s5: 24px;
+  --s6: 32px;
+  --s7: 48px;
+  --s8: 64px;
+  --s9: 96px;
+  --s10: 128px;
+  --f-display: 'Instrument Serif', Georgia, serif; /* titles, wordmark */
+  --f-body:
+    'Newsreader Variable', Georgia, serif; /* reading text, 18px / 1.6 */
+  --f-mono:
+    'Geist Mono', ui-monospace, Menlo, monospace; /* dates, tags, buttons, nav */
+  --t-body: 18px;
+  --t-small: 15px;
+  --t-meta: 13px;
+  --t-h3: 26px;
+  --t-h2: 40px;
+  --t-h1: clamp(52px, 7vw, 112px);
+
+  /* Light */
+  --bg: #f7f4ee; /* osso */
+  --surface: #fffdf9;
+  --ink: #23201c; /* seppia */
+  --muted: #6b645a;
+  --line: #ddd6ca;
+  --accent: #c85016; /* fills, marks, large type */
+  --on-accent: #ffffff;
+  --accent-text: #b5400f; /* accent for small text, 5.2:1 */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #1a1815;
+    --surface: #22201c;
+    --ink: #ece6da;
+    --muted: #a39b8e;
+    --line: #3a362f;
+    --accent: #e07a45;
+    --on-accent: #1a1815;
+    --accent-text: #e07a45;
+  }
+}
+
+:root[data-theme='dark'] {
+  --bg: #1a1815;
+  --surface: #22201c;
+  --ink: #ece6da;
+  --muted: #a39b8e;
+  --line: #3a362f;
+  --accent: #e07a45;
+  --on-accent: #1a1815;
+  --accent-text: #e07a45;
+}
