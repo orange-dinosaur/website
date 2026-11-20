@@ -18,6 +18,16 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+@view-transition {
+  navigation: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
 body {
   background: var(--bg);
   color: var(--ink);
@@ -37,7 +47,7 @@ a {
 }
 
 .col {
-  max-width: 760px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--s6);
 }
@@ -50,6 +60,15 @@ a {
 
 main {
   padding-top: var(--s8);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 @media (max-width: 600px) {

@@ -1,0 +1,79 @@
+---
+import { TAGS, type Tag } from '../data/tags';
+
+interface Props {
+  current?: Tag;
+}
+
+const { current } = Astro.props;
+---
+
+<div class="filter mono">
+  <label for="topic">Argomento</label>
+  <span class="pick">
+    <select id="topic" class:list={{ on: current }}>
+      <option value="" selected={!current}>
+        tutti
+      </option>
+      {TAGS.map((tag) => (
+        <option value={tag} selected={tag === current}>
+          {tag}
+        </option>
+      ))}
+    </select>
+  </span>
+</div>
+
+<script>
+  const select = document.querySelector<HTMLSelectElement>('#topic')!;
+  select.addEventListener('change', () => {
+    location.href = select.value ? `/argomenti/${select.value}` : '/';
+  });
+</script>
+
+<style>
+  .filter {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    gap: var(--s2);
+    padding-bottom: var(--s3);
+    border-bottom: var(--border-w) solid var(--ink);
+    color: var(--muted);
+  }
+  .pick {
+    position: relative;
+  }
+  .pick::after {
+    content: '';
+    position: absolute;
+    right: 1px;
+    top: 50%;
+    width: 5px;
+    height: 5px;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    transform: translateY(-75%) rotate(45deg);
+    pointer-events: none;
+  }
+  select {
+    -webkit-appearance: none;
+    appearance: none;
+    font: inherit;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    padding: 0 16px 1px 0;
+    cursor: pointer;
+  }
+  select:hover,
+  select.on {
+    border-bottom-color: var(--accent);
+  }
+  option {
+    color: #23201c;
+    background: #fffdf9;
+  }
+</style>

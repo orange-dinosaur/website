@@ -1,0 +1,81 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate } from '../lib/content';
+
+interface Props {
+  posts: CollectionEntry<'posts'>[];
+}
+
+const { posts } = Astro.props;
+---
+
+<h1 class="visually-hidden">Post</h1>
+<ul class="posts">
+  {posts.map((post) => (
+    <li>
+      <time class="mono" datetime={post.data.date.toISOString().slice(0, 10)}>
+        {formatDate(post.data.date)}
+      </time>
+      <div>
+        <a class="t" href={`/post/${post.id}`}>
+          {post.data.title}
+        </a>
+        <p class="tags mono">
+          {post.data.tags.map((tag) => (
+            <a href={`/argomenti/${tag}`}>{tag}</a>
+          ))}
+        </p>
+      </div>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .posts {
+    list-style: none;
+  }
+  li {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: var(--s5);
+    padding: var(--s5) 0;
+    border-bottom: var(--border-w) solid var(--line);
+    align-items: baseline;
+  }
+  time {
+    color: var(--muted);
+  }
+  .t {
+    font-family: var(--f-display);
+    font-size: 28px;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    display: inline;
+  }
+  .t:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
+  .tags {
+    margin-top: var(--s2);
+    color: var(--muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s3);
+  }
+  .tags a:hover {
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 600px) {
+    li {
+      grid-template-columns: 1fr;
+      gap: var(--s1);
+    }
+    .t {
+      font-size: 25px;
+    }
+  }
+</style>
