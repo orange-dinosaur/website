@@ -1,6 +1,9 @@
 # working notes (a symlink, so no trailing slash)
 .notes
 
+# local mock Posts for checking pages in dev
+src/content/posts/_mock/
+
 # build output
 dist/
 # generated types
