@@ -1,0 +1,157 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDate, getPosts, readingTime } from '../../lib/content';
+import '../../styles/prose.css';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  // Newest first, so the previous Post by date is the next one in the list.
+  return posts.map((post, i) => ({
+    params: { slug: post.id },
+    props: { post, previous: posts[i + 1] },
+  }));
+}
+
+const { post, previous } = Astro.props;
+const { title, date, lede, tags, project: ref } = post.data;
+const project = ref && (await getEntry(ref));
+const { Content } = await render(post);
+---
+
+<BaseLayout title={title} description={lede}>
+  <main class="col">
+    <a class="back mono" href="/">
+      ← Tutti i post
+    </a>
+    <article>
+      <p class="meta mono">
+        <time datetime={date.toISOString().slice(0, 10)}>
+          {formatDate(date)}
+        </time>
+        <span>{readingTime(post.body ?? '')}</span>
+        {tags.map((tag) => (
+          <a href={`/argomenti/${tag}`}>{tag}</a>
+        ))}
+      </p>
+      {project && (
+        <p class="part mono">
+          Parte di: <a href={`/progetti#${project.id}`}>{project.data.name}</a>
+        </p>
+      )}
+      <h1>{title}</h1>
+      <p class="lede">{lede}</p>
+      <hr class="rule" />
+      <div class="prose">
+        <Content />
+      </div>
+    </article>
+
+    <nav class="pager" aria-label="Altri post">
+      {previous ? (
+        <a class="prev" href={`/post/${previous.id}`}>
+          <span class="k mono">Precedente</span>
+          <span class="t">{previous.data.title}</span>
+        </a>
+      ) : (
+        <span />
+      )}
+      <a class="next" href="/">
+        <span class="k mono">Indice</span>
+        <span class="t">Tutti i post</span>
+      </a>
+    </nav>
+  </main>
+</BaseLayout>
+
+<style>
+  .back {
+    display: inline-block;
+    color: var(--muted);
+    margin-bottom: var(--s6);
+    border-bottom: 1px solid transparent;
+  }
+  .back:hover {
+    color: var(--ink);
+    border-bottom-color: var(--accent);
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2) var(--s4);
+    color: var(--muted);
+  }
+  .meta a:hover {
+    color: var(--accent-text);
+  }
+  .part {
+    margin-top: var(--s2);
+    color: var(--muted);
+  }
+  .part a {
+    color: var(--ink);
+    border-bottom: 1px solid var(--accent);
+  }
+  h1 {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: clamp(42px, 6vw, 64px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    margin: var(--s4) 0 var(--s5);
+    max-width: 16ch;
+  }
+  .lede {
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.45;
+    color: var(--muted);
+    max-width: 40ch;
+  }
+  .rule {
+    border: 0;
+    border-top: var(--border-w) solid var(--ink);
+    margin: var(--s7) 0 var(--s6);
+  }
+  .pager {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--s5);
+    margin-top: var(--s8);
+    border-top: var(--border-w) solid var(--ink);
+    padding-top: var(--s4);
+  }
+  .pager a {
+    display: block;
+  }
+  .k {
+    color: var(--muted);
+    display: block;
+    margin-bottom: var(--s2);
+  }
+  .t {
+    font-family: var(--f-display);
+    font-size: 22px;
+    line-height: 1.15;
+  }
+  .pager a:hover .t {
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 4px;
+  }
+  .next {
+    text-align: right;
+  }
+
+  @media (max-width: 600px) {
+    .lede {
+      font-size: 20px;
+    }
+    .pager {
+      grid-template-columns: 1fr;
+    }
+    .next {
+      text-align: left;
+    }
+  }
+</style>
