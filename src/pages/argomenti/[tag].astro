@@ -1,0 +1,25 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostList from '../../components/PostList.astro';
+import TopicSelect from '../../components/TopicSelect.astro';
+import { TAGS, type Tag } from '../../data/tags';
+import { getPosts } from '../../lib/content';
+
+export function getStaticPaths() {
+  return TAGS.map((tag) => ({ params: { tag } }));
+}
+
+const tag = Astro.params.tag as Tag;
+const posts = (await getPosts()).filter((post) => post.data.tags.includes(tag));
+---
+
+<BaseLayout title={tag}>
+  <main class="col">
+    <TopicSelect current={tag} />
+    {posts.length ? (
+      <PostList posts={posts} />
+    ) : (
+      <p class="empty">Nessun post con questo argomento.</p>
+    )}
+  </main>
+</BaseLayout>
