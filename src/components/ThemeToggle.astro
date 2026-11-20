@@ -1,0 +1,90 @@
+<button
+  class="theme"
+  type="button"
+  aria-label="Passa al tema scuro"
+  title="Tema scuro"
+>
+  <svg class="i-moon" viewBox="0 0 20 20" aria-hidden="true">
+    <path d="M15.5 12.8A6.5 6.5 0 0 1 7.2 4.5a6.5 6.5 0 1 0 8.3 8.3z"></path>
+  </svg>
+  <svg class="i-sun" viewBox="0 0 20 20" aria-hidden="true">
+    <circle cx="10" cy="10" r="3.6"></circle>
+    <path d="M10 1.5v2.5M10 16v2.5M1.5 10H4M16 10h2.5M4 4l1.8 1.8M14.2 14.2L16 16M4 16l1.8-1.8M14.2 5.8L16 4"></path>
+  </svg>
+</button>
+
+<script>
+  const root = document.documentElement;
+  const btn = document.querySelector<HTMLButtonElement>('button.theme')!;
+  const isDark = () => {
+    const t = root.dataset.theme;
+    return t
+      ? t === 'dark'
+      : matchMedia('(prefers-color-scheme: dark)').matches;
+  };
+  const label = () => {
+    const d = isDark();
+    btn.setAttribute(
+      'aria-label',
+      d ? 'Passa al tema chiaro' : 'Passa al tema scuro',
+    );
+    btn.title = d ? 'Tema chiaro' : 'Tema scuro';
+  };
+  label();
+  btn.addEventListener('click', () => {
+    const next = isDark() ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try {
+      localStorage.setItem('od-theme', next);
+    } catch {}
+    label();
+  });
+</script>
+
+<style>
+  .theme {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    background: none;
+    color: var(--ink);
+    border: var(--border-w) solid var(--ink);
+    cursor: pointer;
+    border-radius: 0;
+  }
+  .theme:hover {
+    background: var(--ink);
+    color: var(--bg);
+  }
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: square;
+  }
+  .i-moon path {
+    fill: currentColor;
+    stroke: none;
+  }
+  /* Icon follows the theme in CSS so it is right before any script runs */
+  .i-sun {
+    display: none;
+  }
+  :global(:root[data-theme='dark']) .i-sun {
+    display: block;
+  }
+  :global(:root[data-theme='dark']) .i-moon {
+    display: none;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme='light'])) .i-sun {
+      display: block;
+    }
+    :global(:root:not([data-theme='light'])) .i-moon {
+      display: none;
+    }
+  }
+</style>

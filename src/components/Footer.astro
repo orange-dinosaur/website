@@ -1,0 +1,33 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="col mono">
+    <span>© {year} Giulio</span>
+    <span class="links">
+      <a href="/rss.xml">RSS</a>
+      <a href="/chi-sono#contatti">Contatti</a>
+    </span>
+  </div>
+</footer>
+
+<style>
+  .col {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--s4);
+    flex-wrap: wrap;
+    color: var(--muted);
+    padding-top: var(--s8);
+    padding-bottom: var(--s7);
+  }
+  a {
+    color: var(--ink);
+    border-bottom: 1px solid var(--accent);
+  }
+  .links {
+    display: flex;
+    gap: var(--s5);
+  }
+</style>

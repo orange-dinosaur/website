@@ -48,8 +48,15 @@ a {
   line-height: 1.4;
 }
 
+main {
+  padding-top: var(--s8);
+}
+
 @media (max-width: 600px) {
   .col {
     padding: 0 var(--s5);
+  }
+  main {
+    padding-top: var(--s6);
   }
 }

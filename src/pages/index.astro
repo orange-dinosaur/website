@@ -1,23 +1,13 @@
 ---
-import '../styles/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="it">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>orange-dinosaur</title>
-  </head>
-  <body>
-    <main class="col">
-      <h1 style="font-family: var(--f-display); font-size: var(--t-h1); font-weight: 400">
-        orange-dinosaur
-      </h1>
-      <p>Testo di prova in Newsreader.</p>
-      <p class="mono">2026-11-16 · Geist Mono</p>
-    </main>
-  </body>
-</html>
+<BaseLayout>
+  <main class="col">
+    <h1 style="font-family: var(--f-display); font-size: var(--t-h1); font-weight: 400">
+      orange-dinosaur
+    </h1>
+    <p style="height: 150vh">Testo di prova in Newsreader.</p>
+    <p class="mono">2026-11-16 · Geist Mono</p>
+  </main>
+</BaseLayout>
