@@ -1,11 +1,27 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
 
-const links = [
-  { href: '/progetti', label: 'Progetti' },
-  { href: '/chi-sono', label: 'Chi sono' },
-];
 const path = Astro.url.pathname;
+const links = [
+  {
+    href: '/',
+    label: 'Post',
+    active:
+      path === '/' ||
+      path.startsWith('/post/') ||
+      path.startsWith('/argomenti/'),
+  },
+  {
+    href: '/progetti',
+    label: 'Progetti',
+    active: path.startsWith('/progetti'),
+  },
+  {
+    href: '/chi-sono',
+    label: 'Chi sono',
+    active: path.startsWith('/chi-sono'),
+  },
+];
 ---
 
 <header>
@@ -14,11 +30,8 @@ const path = Astro.url.pathname;
       orange-dinosaur
     </a>
     <nav aria-label="Principale">
-      {links.map(({ href, label }) => (
-        <a
-          href={href}
-          aria-current={path.startsWith(href) ? 'page' : undefined}
-        >
+      {links.map(({ href, label, active }) => (
+        <a href={href} aria-current={active ? 'page' : undefined}>
           {label}
         </a>
       ))}
@@ -98,7 +111,7 @@ const path = Astro.url.pathname;
       font-size: 23px;
     }
   }
-  @media (max-width: 374px) {
+  @media (max-width: 420px) {
     .brand {
       font-size: 20px;
     }

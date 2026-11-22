@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getPosts, getProjects } from '../lib/content';
+
+const projects = await getProjects();
+const posts = await getPosts();
+const postsOf = (id: string) => posts.filter((p) => p.data.project?.id === id);
+---
+
+<BaseLayout title="Progetti">
+  <main class="col">
+    <h1>Progetti</h1>
+    {projects.length > 0 && (
+      <ul class="list">
+        {projects.map(({ id, data }) => (
+          <li id={id}>
+            <span class="y mono">{data.startYear}</span>
+            <div>
+              <h2>{data.name}</h2>
+              <p>{data.summary}</p>
+              {postsOf(id).length > 0 && (
+                <p class="posts mono">
+                  {postsOf(id).map((post) => (
+                    <a href={`/post/${post.id}`}>{post.data.title}</a>
+                  ))}
+                </p>
+              )}
+              <p class="foot mono">
+                <span class={data.status === 'in corso' ? 'on' : undefined}>
+                  {data.status}
+                </span>
+                {data.code && <a href={data.code}>Codice</a>}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    )}
+  </main>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -0.015em;
+  }
+  .list {
+    list-style: none;
+    margin-top: var(--s6);
+    border-top: var(--border-w) solid var(--ink);
+  }
+  li {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: var(--s5);
+    padding: var(--s6) 0;
+    border-bottom: var(--border-w) solid var(--line);
+    align-items: baseline;
+  }
+  .y {
+    color: var(--muted);
+  }
+  h2 {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  p {
+    margin-top: var(--s2);
+    max-width: 54ch;
+  }
+  .posts,
+  .foot {
+    margin-top: var(--s3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s2) var(--s4);
+  }
+  .foot {
+    color: var(--muted);
+  }
+  .on {
+    color: var(--accent-text);
+  }
+  .posts a,
+  .foot a {
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+  .posts a:hover,
+  .foot a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 38px;
+    }
+    li {
+      grid-template-columns: 1fr;
+      gap: var(--s1);
+      padding: var(--s5) 0;
+    }
+    h2 {
+      font-size: 27px;
+    }
+  }
+</style>
