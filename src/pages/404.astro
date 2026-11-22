@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Pagina non trovata">
+  <main class="col">
+    <h1>Pagina non trovata</h1>
+    <p>Questa pagina non esiste, o non esiste più.</p>
+    <a class="mono" href="/">
+      Torna ai post
+    </a>
+  </main>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -0.015em;
+  }
+  p {
+    margin-top: var(--s5);
+  }
+  a {
+    display: inline-block;
+    margin-top: var(--s5);
+    border-bottom: 1px solid var(--line);
+  }
+  a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 38px;
+    }
+  }
+</style>

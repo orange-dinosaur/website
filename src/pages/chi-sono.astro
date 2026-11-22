@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/prose.css';
+
+const email = '';
+---
+
+<BaseLayout title="Chi sono">
+  <main class="col">
+    <h1>Chi sono</h1>
+    <div class="prose">
+      <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat.
+      </p>
+      <p>
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+        dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </p>
+      <p>
+        Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+        accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab
+        illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+        explicabo.
+      </p>
+    </div>
+
+    <h2 id="contatti">Contatti</h2>
+    <ul class="contacts mono">
+      <li>
+        <span class="k">Email</span>
+        {email && <a href={`mailto:${email}`}>{email}</a>}
+      </li>
+      <li>
+        <span class="k">GitHub</span>
+        <a
+          href="https://github.com/orange-dinosaur"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          orange-dinosaur
+        </a>
+      </li>
+      <li>
+        <span class="k">RSS</span>
+        <a href="/rss.xml" target="_blank">
+          Iscriviti ai post
+        </a>
+      </li>
+    </ul>
+  </main>
+</BaseLayout>
+
+<style>
+  h1 {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -0.015em;
+  }
+  .prose {
+    margin-top: var(--s6);
+  }
+  h2 {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 1.1;
+    margin-top: var(--s8);
+  }
+  .contacts {
+    list-style: none;
+    margin-top: var(--s4);
+    border-top: var(--border-w) solid var(--ink);
+  }
+  li {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr);
+    gap: var(--s5);
+    padding: var(--s4) 0;
+    border-bottom: var(--border-w) solid var(--line);
+    align-items: baseline;
+  }
+  .k {
+    color: var(--muted);
+  }
+  li a {
+    font-size: 18px;
+    overflow-wrap: anywhere;
+    border-bottom: 1px solid var(--line);
+  }
+  li a:hover {
+    border-bottom-color: var(--accent);
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 38px;
+    }
+    li {
+      grid-template-columns: 1fr;
+      gap: var(--s1);
+    }
+  }
+</style>
