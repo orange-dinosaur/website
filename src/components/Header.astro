@@ -59,6 +59,11 @@ const links = [
   header.stuck {
     border-bottom-color: var(--line);
   }
+  @media (prefers-reduced-motion: reduce) {
+    header {
+      transition: none;
+    }
+  }
   .col {
     display: flex;
     align-items: center;
@@ -112,25 +117,25 @@ const links = [
     }
   }
   @media (max-width: 420px) {
+    .col {
+      gap: var(--s2);
+    }
     .brand {
-      font-size: 20px;
+      font-size: 18px;
     }
     nav {
-      gap: 10px;
+      gap: 8px;
     }
     nav a {
       font-size: 12px;
     }
   }
   @media (max-width: 340px) {
-    .col {
-      gap: var(--s2);
-    }
     .brand {
-      font-size: 17px;
+      font-size: 15px;
     }
     nav {
-      gap: 6px;
+      gap: 5px;
     }
     nav a {
       font-size: 11px;
