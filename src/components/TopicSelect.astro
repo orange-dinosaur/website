@@ -9,6 +9,7 @@ const { current } = Astro.props;
 ---
 
 <div class="filter mono">
+  <slot />
   <label for="topic">Argomento</label>
   <span class="pick">
     <select id="topic" class:list={{ on: current }}>

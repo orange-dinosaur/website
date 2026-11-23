@@ -18,6 +18,8 @@ html {
   -webkit-text-size-adjust: 100%;
   /* keeps anchor targets clear of the sticky header */
   scroll-padding-top: 96px;
+  /* same column position whether or not the page scrolls */
+  scrollbar-gutter: stable;
 }
 
 @view-transition {

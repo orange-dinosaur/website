@@ -9,7 +9,9 @@ const posts = await getPosts();
 
 <BaseLayout>
   <main class="col">
-    <TopicSelect />
+    <TopicSelect>
+      <h1>Post</h1>
+    </TopicSelect>
     {posts.length ? (
       <PostList posts={posts} />
     ) : (
@@ -17,3 +19,23 @@ const posts = await getPosts();
     )}
   </main>
 </BaseLayout>
+
+<style>
+  h1 {
+    font-family: var(--f-display);
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin-right: auto;
+    /* the filter row adds --s3, so the rule sits --s6 under the title as on Progetti */
+    margin-bottom: calc(var(--s6) - var(--s3));
+  }
+
+  @media (max-width: 600px) {
+    h1 {
+      font-size: 38px;
+    }
+  }
+</style>

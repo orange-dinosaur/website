@@ -15,6 +15,7 @@ const posts = (await getPosts()).filter((post) => post.data.tags.includes(tag));
 
 <BaseLayout title={tag}>
   <main class="col">
+    <h1 class="visually-hidden">Post</h1>
     <TopicSelect current={tag} />
     {posts.length ? (
       <PostList posts={posts} />
