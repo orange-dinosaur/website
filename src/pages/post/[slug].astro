@@ -19,7 +19,7 @@ const project = ref && (await getEntry(ref));
 const { Content } = await render(post);
 ---
 
-<BaseLayout title={title} description={lede}>
+<BaseLayout title={title} description={lede} type="article">
   <main class="col">
     <a class="back mono" href="/">
       ← Tutti i post
