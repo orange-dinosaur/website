@@ -1,6 +1,6 @@
 import { getCollection } from 'astro:content';
 
-const published = ({ data }: { data: { draft: boolean } }) =>
+export const published = ({ data }: { data: { draft: boolean } }) =>
   !import.meta.env.PROD || !data.draft;
 
 export async function getPosts() {
