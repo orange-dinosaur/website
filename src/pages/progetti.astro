@@ -10,7 +10,7 @@ const postsOf = (id: string) => posts.filter((p) => p.data.project?.id === id);
 <BaseLayout title="Progetti">
   <main class="col">
     <h1>Progetti</h1>
-    {projects.length > 0 && (
+    {projects.length > 0 ? (
       <ul class="list">
         {projects.map(({ id, data }) => (
           <li id={id}>
@@ -35,6 +35,8 @@ const postsOf = (id: string) => posts.filter((p) => p.data.project?.id === id);
           </li>
         ))}
       </ul>
+    ) : (
+      <p class="empty ruled">Ancora nessun progetto.</p>
     )}
   </main>
 </BaseLayout>
@@ -49,6 +51,9 @@ const postsOf = (id: string) => posts.filter((p) => p.data.project?.id === id);
   }
   .list {
     list-style: none;
+  }
+  .list,
+  .ruled {
     margin-top: var(--s6);
     border-top: var(--border-w) solid var(--ink);
   }
@@ -70,7 +75,7 @@ const postsOf = (id: string) => posts.filter((p) => p.data.project?.id === id);
     line-height: 1.1;
     letter-spacing: -0.01em;
   }
-  p {
+  li p {
     margin-top: var(--s2);
     max-width: 54ch;
   }
