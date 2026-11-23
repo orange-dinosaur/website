@@ -4,7 +4,7 @@ import { satteri } from '@astrojs/markdown-satteri';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://orange-dinosaur.vercel.app',
+  site: 'https://website-pearl-five-38.vercel.app',
   output: 'static',
   integrations: [sitemap()],
   markdown: {
