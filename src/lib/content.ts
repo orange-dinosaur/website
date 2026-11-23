@@ -4,18 +4,21 @@ const published = ({ data }: { data: { draft: boolean } }) =>
   !import.meta.env.PROD || !data.draft;
 
 export async function getPosts() {
-  const posts = await getCollection('posts', published);
+  const all = await getCollection('posts');
   // Astro only logs a broken reference, so fail the build here instead.
+  // Drafts are checked too, so a typo surfaces before the Post is published.
   const projectIds = new Set(
     (await getCollection('projects')).map((p) => p.id),
   );
-  for (const post of posts) {
+  for (const post of all) {
     const ref = post.data.project;
     if (ref && !projectIds.has(ref.id)) {
       throw new Error(`Post "${post.id}": project "${ref.id}" does not exist`);
     }
   }
-  return posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  return all
+    .filter(published)
+    .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 }
 
 export async function getProjects() {
