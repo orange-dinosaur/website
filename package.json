@@ -13,7 +13,8 @@
     "astro": "astro",
     "check": "astro check",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "new": "node scripts/new.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "0.4.10",
